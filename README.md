@@ -8,6 +8,8 @@ A simplified end-to-end project for predicting traffic congestion level and trav
 traffic-congestion-prediction/
 |-- main.py                   # FastAPI app
 |-- traffic_pipeline.py       # Data generation, preprocessing, training, forecasting
+|-- traffic_system/
+|   |-- schemas.py           # Shared API request/response models
 |-- dashboard/
 |   |-- streamlit_app.py      # Streamlit dashboard
 |-- scripts/
@@ -35,16 +37,18 @@ traffic-congestion-prediction/
 - Trains regression and classification models
 - Forecasts future congestion using ARIMA
 - Serves predictions through FastAPI
+- Analyzes trips from start area to end area with ETA, delay, hotspot, and route risk
 - Shows trends and predictions in Streamlit
 - Includes an optional PySpark job for the big-data angle
 
 ## Main Files
 
-- [main.py](</d:/DSBDA MP/main.py>)
-- [traffic_pipeline.py](</d:/DSBDA MP/traffic_pipeline.py>)
-- [dashboard/streamlit_app.py](</d:/DSBDA MP/dashboard/streamlit_app.py>)
-- [scripts/bootstrap_project.py](</d:/DSBDA MP/scripts/bootstrap_project.py>)
-- [spark/traffic_spark_job.py](</d:/DSBDA MP/spark/traffic_spark_job.py>)
+- [main.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/main.py>)
+- [traffic_pipeline.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/traffic_pipeline.py>)
+- [traffic_system/schemas.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/traffic_system/schemas.py>)
+- [dashboard/streamlit_app.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/dashboard/streamlit_app.py>)
+- [scripts/bootstrap_project.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/scripts/bootstrap_project.py>)
+- [spark/traffic_spark_job.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/spark/traffic_spark_job.py>)
 
 ## Run Locally
 
@@ -76,6 +80,7 @@ python -m streamlit run dashboard/streamlit_app.py
 
 - `GET /health`
 - `POST /predict`
+- `POST /route-analyze`
 - `POST /train`
 - `GET /data`
 - `GET /forecast`
