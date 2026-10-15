@@ -1,11 +1,15 @@
+from __future__ import annotations
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
+from typing import Any
 from traffic_system.config import (
-    settings, AREA_PROFILES, RUSH_HOURS, HOLIDAY_MONTH_DAY, 
-    AREA_PROFILE_MAP, NUMERIC_COLUMNS, ensure_directories
+    settings, AREA_PROFILES, RUSH_HOURS, HOLIDAY_MONTH_DAY,
+    AREA_PROFILE_MAP, NUMERIC_COLUMNS, ensure_directories,
+    CONGESTION_RATIO_LOW_MAX, CONGESTION_RATIO_MED_MAX,
 )
 
 def _assign_weather_condition(precipitation: pd.Series, humidity: pd.Series) -> pd.Series:
@@ -90,7 +94,7 @@ def generate_synthetic_traffic_data(
             "travel_time_minutes": np.round(travel_time_minutes, 2),
             "congestion_level": pd.cut(
                 traffic_volume / avg_speed_kmph,
-                bins=[-np.inf, 24, 38, np.inf],
+                bins=[-np.inf, CONGESTION_RATIO_LOW_MAX, CONGESTION_RATIO_MED_MAX, np.inf],
                 labels=["Low", "Medium", "High"],
             ).astype(str),
         }
@@ -136,7 +140,9 @@ def engineer_time_features(df: pd.DataFrame) -> pd.DataFrame:
     featured_df["day_name"] = featured_df["timestamp"].dt.day_name()
     featured_df["is_weekend"] = (featured_df["day_of_week"] >= 5).astype(int)
     featured_df["is_rush_hour"] = featured_df["hour"].isin(RUSH_HOURS).astype(int)
-    featured_df["is_holiday"] = featured_df["timestamp"].apply(lambda ts: int((ts.month, ts.day) in HOLIDAY_MONTH_DAY))
+    featured_df["is_holiday"] = featured_df["timestamp"].apply(
+        lambda ts: 0 if pd.isna(ts) else int((int(ts.month), int(ts.day)) in HOLIDAY_MONTH_DAY)
+    )
     featured_df["time_band"] = pd.cut(
         featured_df["hour"],
         bins=[-1, 5, 11, 16, 20, 24],

@@ -43,12 +43,12 @@ traffic-congestion-prediction/
 
 ## Main Files
 
-- [main.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/main.py>)
-- [traffic_pipeline.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/traffic_pipeline.py>)
-- [traffic_system/schemas.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/traffic_system/schemas.py>)
-- [dashboard/streamlit_app.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/dashboard/streamlit_app.py>)
-- [scripts/bootstrap_project.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/scripts/bootstrap_project.py>)
-- [spark/traffic_spark_job.py](</d:/DSBDA MP/Traffic-Congestion-Prediction-System/spark/traffic_spark_job.py>)
+- `main.py`
+- `traffic_pipeline.py`
+- `traffic_system/schemas.py`
+- `dashboard/streamlit_app.py`
+- `scripts/bootstrap_project.py`
+- `spark/traffic_spark_job.py`
 
 ## Run Locally
 

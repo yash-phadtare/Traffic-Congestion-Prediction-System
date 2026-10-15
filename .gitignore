@@ -9,6 +9,8 @@ artifacts/models/*.json
 artifacts/models/*.csv
 artifacts/plots/*.png
 artifacts/forecasts/*.csv
+artifacts/spark/
+artifacts/test_temp/
+artifacts/runtime_logs/
 data/raw/*.csv
 data/processed/*.csv
-

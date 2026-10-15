@@ -37,7 +37,8 @@ def run_spark_pipeline(
 
     enriched_df = (
         df.withColumn("hour", hour("timestamp"))
-        .withColumn("day_of_week", dayofweek("timestamp"))
+        # Spark dayofweek: 1=Sunday..7=Saturday. Convert to pandas convention 0=Monday..6=Sunday.
+        .withColumn("day_of_week", ((dayofweek("timestamp") + 5) % 7))
         .withColumn("month", month("timestamp"))
     )
 

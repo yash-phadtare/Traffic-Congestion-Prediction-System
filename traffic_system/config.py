@@ -39,18 +39,31 @@ FEATURE_COLUMNS = [
     "area_name", "latitude", "longitude", "temperature_c", "humidity_pct", "precipitation_mm",
     "weather_condition", "traffic_volume", "avg_speed_kmph", "road_incident_count",
     "route_distance_km", "hour", "day_of_week", "month", "is_weekend", "is_rush_hour",
-    "is_holiday", "time_band", "congestion_index",
+    "is_holiday", "time_band",
 ]
 NUMERIC_FEATURES = [
     "latitude", "longitude", "temperature_c", "humidity_pct", "precipitation_mm",
     "traffic_volume", "avg_speed_kmph", "road_incident_count", "route_distance_km",
-    "hour", "day_of_week", "month", "is_weekend", "is_rush_hour", "is_holiday", "congestion_index",
+    "hour", "day_of_week", "month", "is_weekend", "is_rush_hour", "is_holiday",
 ]
 CATEGORICAL_FEATURES = ["area_name", "weather_condition", "time_band"]
 NUMERIC_COLUMNS = [
     "latitude", "longitude", "temperature_c", "humidity_pct", "precipitation_mm",
     "traffic_volume", "avg_speed_kmph", "road_incident_count", "route_distance_km",
 ]
+
+# Single source of truth for congestion labels.
+# CONGESTION_RATIO_BINS applies to volume/speed ratio (training labels + route trend).
+# FORECAST_TRAVEL_TIME_BINS applies to travel-time minutes (ARIMA forecast output,
+# which lives on a different scale and needs its own thresholds).
+CONGESTION_RATIO_LOW_MAX = 24.0
+CONGESTION_RATIO_MED_MAX = 38.0
+FORECAST_TRAVEL_LOW_MAX = 18.0
+FORECAST_TRAVEL_MED_MAX = 28.0
+# Normalizer so route_risk_score discriminates instead of saturating at 100.
+# congestion_ratio alone is often >100 (e.g. 1500/10=150), so scale by the
+# "High" threshold before adding incident/weather/rush contributions.
+RISK_RATIO_NORM = CONGESTION_RATIO_MED_MAX
 
 def ensure_directories(paths: list[Path]) -> None:
     for path in paths:
