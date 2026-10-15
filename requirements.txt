@@ -2,7 +2,7 @@
 # Includes both runtime and test dependencies for a one-command setup.
 fastapi>=0.115,<0.152
 uvicorn[standard]>=0.32,<0.52
-streamlit>=1.41,<1.61
+streamlit>=1.60,<1.61
 streamlit-folium>=0.24,<0.28
 folium>=0.19.2,<0.21
 pandas>=2.2.3,<4
